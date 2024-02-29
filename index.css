@@ -1,0 +1,63 @@
+body {
+  font-family: "Mochiy Pop P One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  background-color: rgb(29, 29, 29);
+}
+html {
+  touch-action: manipulation;
+}
+canvas {
+  border: 3px solid #000;
+  border-radius: 50%;
+  background-color: #ececec;
+  margin: 0 auto;
+}
+.container {
+  max-width: 600px;
+  padding: 30px 0px;
+  margin: 0 auto;
+}
+.score {
+  color: rgb(236, 230, 230);
+  padding: 30px 0px;
+  font-size: 30px;
+}
+.start-page {
+  color: rgb(241, 241, 241);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgb(29, 29, 29);
+  text-align: center;
+}
+.start-page-container {
+  position: relative;
+  top: 10%;
+}
+.title {
+  font-size: 55px;
+  letter-spacing: 3px;
+  font-weight: 200;
+  line-height: 60px;
+}
+.start-page a {
+  box-shadow: 4px 4px gray;
+  margin: 30px 0px;
+  border-radius: 7px;
+  background-color: rgb(236, 230, 230);
+  border: 2px solid gray;
+  font-size: 45px;
+  text-decoration: none;
+  padding: 10px 30px;
+  display: inline-block;
+  color: rgb(0, 132, 255);
+}
+.start-page a:active {
+  box-shadow: none;
+  position: relative;
+  top: 10px;
+}
