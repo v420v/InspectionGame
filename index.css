@@ -1,60 +1,128 @@
-body {
+* {
+  margin: 0;
+  padding: 0;
   font-family: "Mochiy Pop P One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  text-align: center;
-  background-color: rgb(29, 29, 29);
 }
 html {
   touch-action: manipulation;
 }
-canvas {
-  border: 3px solid #000;
-  border-radius: 50%;
-  background-color: #ececec;
-  margin: 0 auto;
-}
 .container {
-  max-width: 600px;
-  padding: 30px 0px;
+  max-width: 350px;
+  padding: 30px 10px;
   margin: 0 auto;
+  min-height: 88vh;
+}
+#game-container {
+  margin: 30px 0px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid #222;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.game-image {
+  position: absolute;
+  cursor: pointer;
+  width: 80px;
 }
 .score {
-  color: rgb(236, 230, 230);
-  padding: 30px 0px;
+  flex: 1;
   font-size: 30px;
 }
+.remove-btn {
+  padding: 30px 0px;
+  text-align: center;
+}
+a {
+  cursor: pointer;
+}
+.remove-btn a {
+  background-color: #1da1f2;
+  color: white;
+  width: 100%;
+  font-size: 30px;
+  padding: 15px 0px;
+  display: inline-block;
+  border-radius: 7px;
+  border: 2px solid rgb(68, 68, 68);
+  box-shadow: 4px 4px rgb(68, 68, 68);
+}
+.remove-btn a:active {
+  box-shadow: none;
+  position: relative;
+  top: 10px;
+}
+footer {
+  width: 100%;
+  line-height: 70px;
+  font-size: 15px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  bottom: 0;
+  color: white;
+  background-color: rgb(37, 36, 83);
+}
+footer a {
+  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  color: rgb(206, 206, 206);
+}
+.top-nav {
+  display: flex;
+  padding: 30px 0px;
+}
+.settings-btn {
+  color: rgb(68, 68, 68);
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .start-page {
-  color: rgb(241, 241, 241);
+  color: rgb(47, 47, 47);
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
   position: absolute;
-  background-color: rgb(29, 29, 29);
+  background-color: rgb(243, 243, 243);
   text-align: center;
 }
 .start-page-container {
+  margin: 0 auto;
   position: relative;
-  top: 10%;
+  max-width: 450px;
+  padding: 0 20px;
+  top: 20%;
 }
 .title {
   font-size: 55px;
   letter-spacing: 3px;
   font-weight: 200;
   line-height: 60px;
+  padding-bottom: 30px;
 }
 .start-page a {
-  box-shadow: 4px 4px gray;
-  margin: 30px 0px;
-  border-radius: 7px;
-  background-color: rgb(236, 230, 230);
-  border: 2px solid gray;
-  font-size: 45px;
+  background-color: #1da1f2;
   text-decoration: none;
-  padding: 10px 30px;
-  display: inline-block;
-  color: rgb(0, 132, 255);
+  color: white;
+  font-size: 30px;
+  margin: 30px 0px;
+  width: 100%;
+  display: block;
+  padding: 15px 0px;
+  border-radius: 7px;
+  border: 2px solid rgb(68, 68, 68);
+  box-shadow: 4px 4px rgb(68, 68, 68);
 }
 .start-page a:active {
   box-shadow: none;

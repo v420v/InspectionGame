@@ -4,27 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="index.css">
     <link
       href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Mochiy+Pop+P+One&family=Pixelify+Sans:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Click Game</title>
   </head>
   <body>
-    <div class="score" id="score">現在のスコア: 0点</div>
-    <canvas id="gameCanvas" height="300"></canvas>
     <div id="start-page" class="start-page">
       <div class="start-page-container">
         <div class="title">
           顕微鏡<br />
           ノズル検査<br />
-          模擬ゲーム
+          ゲーム
         </div>
-        <a href="#" class="start-btn" onclick="start()">スタート</a>
+        <a href="#" class="start-btn" onclick="startGame()">スタート</a>
       </div>
     </div>
+    <div class="container">
+      <div class="top-nav">
+        <div id="score" class="score">スコア : 0</div>
+        <div class="settings-btn"><i class="fa-solid fa-gear"></i></div>
+      </div>
+      <div id="game-container"></div>
+      <div class="remove-btn">
+        <a onclick="foundNg()">異物除去！</a>
+      </div>
+    </div>
+    <footer>
+      <a href="https://twitter.com/ibuki42O"
+        ><i class="fa-solid fa-bug"></i> バグ報告</a
+      >
+      <a href="https://twitter.com/ibuki42O"
+        ><i class="fa-brands fa-x-twitter"></i> 旧Twitter</a
+      >
+    </footer>
+    <script
+      src="https://kit.fontawesome.com/6627a3403a.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="main.js"></script>
   </body>
 </html>

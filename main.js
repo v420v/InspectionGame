@@ -1,84 +1,90 @@
-// Canvas要素の取得
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-// ゲームの設定
-const imageWidth = 60;
-const imageHeight = 60;
-const columnCount = 2;
-const imageSpeed = 2.6;
 let score = 0;
 
-// 画像の読み込み
-const goodImage = new Image();
-goodImage.src = "ok.png";
+const imageList = [
+  { src: "ok.png", points: -5 },
+  { src: "ng.png", points: 10 },
+  { src: "ng2.png", points: 10 },
+];
 
-const badImage = new Image();
-badImage.src = "ng2.png";
+const imageInterval = 1500;
 
-const images = [];
+gameContainer = document.getElementById("game-container");
 
-for (let i = 0; i < columnCount; i++) {
-  const isNg = Math.random() < 0.2;
-  const image = {
-    x: (imageWidth + 110) * i,
-    y: canvas.height / 2 - imageHeight / 2,
-    isNg: isNg,
-  };
-  images.push(image);
+function resizeWindow() {
+  gameContainer.style.height =
+    gameContainer.getBoundingClientRect().width + "px";
 }
 
-canvas.addEventListener("click", handleClick);
+window.addEventListener("resize", resizeWindow);
 
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+gameContainer.style.height = gameContainer.getBoundingClientRect().width + "px";
 
-  for (const image of images) {
-    ctx.drawImage(
-      image.isNg ? badImage : goodImage,
-      image.x,
-      image.y,
-      imageWidth,
-      imageHeight
-    );
-    image.x -= imageSpeed;
+gameWidth =
+  gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft; //window.innerWidth;
 
-    if (image.x + imageWidth < 0) {
-      image.x = canvas.width;
-      image.isNg = Math.random() < 0.2;
-    }
-  }
-
-  document.getElementById("score").innerHTML = "現在のスコア: " + score + "点";
-  requestAnimationFrame(gameLoop);
+function get_game_width() {
+  gameWidth =
+    gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft; //window.innerWidth;
+  return gameWidth;
 }
 
-function start() {
+function startGame() {
   document.getElementById("start-page").style.display = "none";
-  gameLoop();
+  setInterval(() => {
+    createRandomImage();
+  }, imageInterval);
 }
 
-function handleClick(event) {
-  const clickX = event.clientX - canvas.getBoundingClientRect().left;
-  const clickY = event.clientY - canvas.getBoundingClientRect().top;
-
-  for (const image of images) {
-    console.log(image.x);
-    console.log(clickX);
-    if (
-      clickX >= image.x &&
-      clickX <= image.x + imageWidth &&
-      clickY >= image.y &&
-      clickY <= image.y + imageHeight
-    ) {
-      console.log("here");
-      if (image.isNg) {
-        score += 10;
-      } else {
-        score -= 5;
-      }
-    } else {
-      console.log("not clicked");
-    }
+function createRandomImage() {
+  // Occurs when the user changes the width of the screen during playing the game.
+  if (gameContainer.childNodes.length != 0) {
+    return;
   }
+
+  const randomIndex = Math.floor(Math.random() * imageList.length);
+  const imageInfo = imageList[randomIndex];
+  const imageElement = new Image();
+
+  imageElement.src = imageInfo.src;
+  imageElement.classList.add("game-image");
+
+  // when the image is clicked
+  imageElement.addEventListener("click", () => {
+    updateScore(imageInfo.points);
+  });
+
+  // add image to game container
+  gameContainer.appendChild(imageElement);
+
+  animateImage(imageElement);
+}
+
+function animateImage(imageElement) {
+  let position = get_game_width() - 70;
+
+  const moveImage = () => {
+    position -= 3;
+    imageElement.style.left = position + "px";
+
+    if (position < gameContainer.offsetLeft) {
+      gameContainer.removeChild(imageElement);
+    } else {
+      requestAnimationFrame(moveImage);
+    }
+  };
+
+  moveImage();
+}
+
+function updateScore(points) {
+  score += points;
+  document.getElementById("score").innerHTML = "スコア : " + score;
+  console.log("Score:", score);
+}
+
+function foundNg() {
+  if (gameContainer.childNodes.length == 0) {
+    return;
+  }
+  gameContainer.childNodes[0].dispatchEvent(new Event("click"));
 }
