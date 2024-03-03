@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+
     <div id="start-page" class="start-page">
       <div class="start-page-container">
         <div class="title">
@@ -22,28 +23,35 @@
         <a href="#" class="start-btn" onclick="startGame()">スタート</a>
       </div>
     </div>
+
+    <div id="end-page" class="end-page">
+      <div id="end-page-container" class="end-page-container">
+        <div id="final-score-container" class="final-score-container"></div>
+        <button onclick="playAgain()" class="play-again">もう一度遊ぶ！</button>
+      </div>
+    </div>
+
     <div class="container">
       <div class="top-nav">
         <div id="score" class="score">スコア : 0</div>
         <div class="settings-btn"><i class="fa-solid fa-gear"></i></div>
       </div>
       <div id="game-container"></div>
+      <div class="range" id="range">
+        <div class="slider" id="slider">
+        </div>
+      </div>
       <div class="remove-btn">
         <a onclick="foundNg()">異物除去！</a>
       </div>
     </div>
-    <footer>
-      <a href="https://twitter.com/ibuki42O"
-        ><i class="fa-solid fa-bug"></i> バグ報告</a
-      >
-      <a href="https://twitter.com/ibuki42O"
-        ><i class="fa-brands fa-x-twitter"></i> 旧Twitter</a
-      >
-    </footer>
+
     <script
       src="https://kit.fontawesome.com/6627a3403a.js"
       crossorigin="anonymous"
     ></script>
+
     <script src="main.js"></script>
+
   </body>
 </html>

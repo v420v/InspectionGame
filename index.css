@@ -6,11 +6,13 @@
 html {
   touch-action: manipulation;
 }
+body {
+  background-color: rgb(243, 243, 243);
+}
 .container {
   max-width: 350px;
-  padding: 30px 10px;
+  padding: 0px 10px;
   margin: 0 auto;
-  min-height: 88vh;
 }
 #game-container {
   margin: 30px 0px;
@@ -33,7 +35,7 @@ html {
   font-size: 30px;
 }
 .remove-btn {
-  padding: 30px 0px;
+  padding-top: 30px;
   text-align: center;
 }
 a {
@@ -66,17 +68,9 @@ footer {
   color: white;
   background-color: rgb(37, 36, 83);
 }
-footer a {
-  margin-right: 20px;
-  color: white;
-  text-decoration: none;
-}
-footer a:hover {
-  color: rgb(206, 206, 206);
-}
 .top-nav {
   display: flex;
-  padding: 30px 0px;
+  padding: 30px 0px 0px 0px;
 }
 .settings-btn {
   color: rgb(68, 68, 68);
@@ -86,7 +80,6 @@ footer a:hover {
   justify-content: center;
   align-items: center;
 }
-
 .start-page {
   color: rgb(47, 47, 47);
   height: 100%;
@@ -125,6 +118,58 @@ footer a:hover {
   box-shadow: 4px 4px rgb(68, 68, 68);
 }
 .start-page a:active {
+  box-shadow: none;
+  position: relative;
+  top: 10px;
+}
+
+.range{
+  height: 45px;
+  background: linear-gradient(135deg, transparent 7px, #808C88 0) top left;
+}
+.slider{
+  height: 45px;
+  width: 0px;
+  background: linear-gradient(135deg, transparent 7px, rgba(254, 44, 85, 1) 0) top left;
+}
+
+.end-page {
+  position: absolute;
+  font-size: 40px;
+  background-color: rgb(243, 243, 243);
+  display: none;
+  width: 100%;
+  height: 100vh;
+}
+.end-page-container {
+  text-align: center;
+  max-width: 350px;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  flex-flow: column;
+  padding: 0px 10px;
+  color: rgba(254, 44, 85, 1);
+}
+.final-score {
+  font-size: 70px;
+}
+.play-again {
+  cursor: pointer;
+  background-color: #1da1f2;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  margin: 30px 0px;
+  width: 100%;
+  display: block;
+  padding: 15px 0px;
+  border-radius: 7px;
+  border: 2px solid rgb(68, 68, 68);
+  box-shadow: 4px 4px rgb(68, 68, 68);
+}
+.play-again:active {
   box-shadow: none;
   position: relative;
   top: 10px;
