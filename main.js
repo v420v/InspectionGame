@@ -35,6 +35,7 @@ function get_game_width() {
 
 function startGame() {
   startPage.style.display = "none";
+  createImageElement();
 
   let updateTimer = setInterval(() => {
     if (percent >= 100) {
@@ -50,6 +51,23 @@ function startGame() {
   }, imageInterval);
 }
 
+let imageElements = [];
+
+function createImageElement() {
+  for (i = 0; i < imageList.length; i++) {
+    const imageInfo = imageList[i];
+
+    const imageElement = new Image();
+    imageElement.src = imageInfo.src;
+    imageElement.classList.add("game-image");
+    imageElement.addEventListener("click", () => {
+      updateScore(imageInfo.points);
+    });
+
+    imageElements.push(imageElement);
+  }
+}
+
 function createRandomImage() {
   // Occurs when the user changes the width of the screen during playing the game.
   if (gameContainer.childNodes.length != 0) {
@@ -57,18 +75,9 @@ function createRandomImage() {
   }
 
   const randomIndex = Math.floor(Math.random() * imageList.length);
-  const imageInfo = imageList[randomIndex];
-  const imageElement = new Image();
 
-  imageElement.src = imageInfo.src;
-  imageElement.classList.add("game-image");
+  const imageElement = imageElements[randomIndex];
 
-  // when the image is clicked
-  imageElement.addEventListener("click", () => {
-    updateScore(imageInfo.points);
-  });
-
-  // add image to game container
   gameContainer.appendChild(imageElement);
 
   animateImage(imageElement);
@@ -114,6 +123,8 @@ function init() {
   scoreDiv.innerHTML = "スコア : " + score;
   scoreDiv.style.color = "rgb(47, 47, 47)";
   sliderDiv.style.width = 0;
+  imageElements = [];
+  createImageElement();
   percent = 0;
 }
 
