@@ -104,6 +104,23 @@ footer {
   line-height: 60px;
   padding-bottom: 30px;
 }
+@keyframes tilt {
+  20% {
+    transform: rotate(1deg);
+  }
+  40% {
+    transform: rotate(-1deg);
+  }
+  60% {
+    transform: rotate(1deg);
+  }
+  80% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
 .start-page a {
   background-color: #1da1f2;
   text-decoration: none;
@@ -116,6 +133,7 @@ footer {
   border-radius: 7px;
   border: 2px solid rgb(68, 68, 68);
   box-shadow: 4px 4px rgb(68, 68, 68);
+  animation: tilt 1.5s infinite;
 }
 .start-page a:active {
   box-shadow: none;
@@ -168,9 +186,11 @@ footer {
   border-radius: 7px;
   border: 2px solid rgb(68, 68, 68);
   box-shadow: 4px 4px rgb(68, 68, 68);
+  animation: tilt 1.5s infinite;
 }
 .play-again:active {
   box-shadow: none;
   position: relative;
   top: 10px;
 }
+
