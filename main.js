@@ -33,6 +33,8 @@ function get_game_width() {
   return gameWidth;
 }
 
+let emojiInterval;
+
 function startGame() {
   startPage.style.display = "none";
   createImageElement();
@@ -42,6 +44,7 @@ function startGame() {
       clearInterval(updateTimer);
       document.getElementById("end-page").style.display = "block";
       document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
+      emojiInterval = setInterval(createEmoji, 400);
     } else {
       percent+=5;
       sliderDiv.style.width = `${percent}%`
@@ -130,6 +133,39 @@ function init() {
 
 function playAgain() {
   init();
+  clearInterval(emojiInterval);
   document.getElementById("end-page").style.display = "none";
   startGame();
 }
+
+function emojiList(score) {
+  if (score <= 0) {
+      return ["🥲", "😭"];
+  } else {
+      return ["😆", "👏"];
+  }
+}
+
+function createEmoji() {
+  var div = document.createElement('div');
+
+  var emojis = emojiList(score);
+
+  div.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+  div.style.position = "absolute";
+  div.style.top = "0px";
+  div.style.left = Math.random() * window.innerWidth + "px";
+  div.style.animation = "fall 5s linear";
+
+  document.body.appendChild(div);
+
+  twemoji.size = '72x72';
+  twemoji.parse(document.body);
+
+  div.addEventListener("animationend", () => {
+    div.remove();
+  });
+}
+
+
