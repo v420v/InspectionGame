@@ -3,7 +3,7 @@ const rangeDiv = document.querySelector("#range");
 const sliderDiv = document.querySelector("#slider");
 const scoreDiv = document.getElementById("score");
 const startPage = document.getElementById("start-page");
-const imageInterval = 1500;
+const imageInterval = 1700; // 1.7seconds
 const gameContainer = document.getElementById("game-container");
 
 let score = 0;
@@ -57,7 +57,7 @@ function startGame() {
 let imageElements = [];
 
 function createImageElement() {
-  for (i = 0; i < imageList.length; i++) {
+  for (i = 0; i < imageList.length; ++i) {
     const imageInfo = imageList[i];
 
     const imageElement = new Image();
@@ -82,20 +82,23 @@ function createRandomImage() {
   const imageElement = imageElements[randomIndex];
 
   gameContainer.appendChild(imageElement);
-
   animateImage(imageElement);
 }
 
 function animateImage(imageElement) {
-  let position = get_game_width() - 40;
+  let startTime = Date.now();
+  let position = get_game_width() - 50;
 
   const moveImage = () => {
-    position -= 9;
-    imageElement.style.left = position + "px";
+    const alapsedTime = Date.now() - startTime;
+    const progress = alapsedTime / 1700; // 1.7seconds
 
-    if (position < gameContainer.offsetLeft) {
+    const newPosition = position - position * progress;
+
+    if (newPosition < gameContainer.offsetLeft) {
       gameContainer.removeChild(imageElement);
     } else {
+      imageElement.style.left = newPosition + "px";
       requestAnimationFrame(moveImage);
     }
   };
