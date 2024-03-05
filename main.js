@@ -11,12 +11,15 @@ let percent = 0;
 let gameWidth = gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
 
 const imageList = [
-  { src: "ng2.png", points: 10 },
-  { src: "ok.png", points: -5 },
-  { src: "ng.png", points: 10 },
-  { src: "ok.png", points: -5 },
-  { src: "ng2.png", points: 10 },
-  { src: "ng3.png", points: 10 },
+  { src: "ok.png", points: -15 },
+  { src: "ng2.png", points: 5 },
+  { src: "ok.png", points: -15 },
+  { src: "ng.png", points: 5 },
+  { src: "ok.png", points: -15 },
+  { src: "ng2.png", points: 5 },
+  { src: "ok.png", points: -15 },
+  { src: "ng3.png", points: 5 },
+  { src: "ok.png", points: -15 },
 ];
 
 function resizeWindow() {
@@ -144,9 +147,9 @@ function playAgain() {
 
 function emojiList(score) {
   if (score <= 0) {
-      return ["🥲", "😭"];
+      return ["🥲", "💧", "😭", "💧"];
   } else {
-      return ["😆", "👏", "🎉"];
+      return ["😆", "😁", "👏", "🎉"];
   }
 }
 
