@@ -28,7 +28,7 @@ body {
 .game-image {
   position: absolute;
   cursor: pointer;
-  width: 80px;
+  width: 50px;
 }
 .score {
   flex: 1;
@@ -160,6 +160,7 @@ footer {
   height: 100vh;
 }
 .end-page-container {
+  position:relative;
   text-align: center;
   max-width: 350px;
   margin: 0 auto;
@@ -169,6 +170,7 @@ footer {
   flex-flow: column;
   padding: 0px 10px;
   color: rgba(254, 44, 85, 1);
+  overflow: hidden;
 }
 .final-score {
   font-size: 70px;

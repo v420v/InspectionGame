@@ -87,7 +87,7 @@ function createRandomImage() {
 }
 
 function animateImage(imageElement) {
-  let position = get_game_width() - 60;
+  let position = get_game_width() - 40;
 
   const moveImage = () => {
     position -= 9;
@@ -142,7 +142,7 @@ function emojiList(score) {
   if (score <= 0) {
       return ["🥲", "😭"];
   } else {
-      return ["😆", "👏"];
+      return ["😆", "👏", "🎉"];
   }
 }
 
@@ -154,11 +154,15 @@ function createEmoji() {
   div.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
 
   div.style.position = "absolute";
-  div.style.top = "0px";
-  div.style.left = Math.random() * window.innerWidth + "px";
+  div.style.top = "-30px";
+
+  var endPageContainer = document.getElementById('end-page-container');
+  var containerWidth = endPageContainer.offsetWidth;
+  div.style.left = (Math.random() * containerWidth - 35) + "px";
+  
   div.style.animation = "fall 5s linear";
 
-  document.body.appendChild(div);
+  endPageContainer.appendChild(div);
 
   twemoji.size = '72x72';
   twemoji.parse(document.body);
