@@ -16,6 +16,7 @@ const imageList = [
   { src: "ng.png", points: 10 },
   { src: "ok.png", points: -5 },
   { src: "ng2.png", points: 10 },
+  { src: "ng3.png", points: 10 },
 ];
 
 function resizeWindow() {
