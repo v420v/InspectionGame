@@ -11,15 +11,15 @@ let percent = 0;
 let gameWidth = gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
 
 const imageList = [
-  { src: "ok.png", points: -15 },
-  { src: "ng2.png", points: 5 },
-  { src: "ok.png", points: -15 },
-  { src: "ng.png", points: 5 },
-  { src: "ok.png", points: -15 },
-  { src: "ng2.png", points: 5 },
-  { src: "ok.png", points: -15 },
-  { src: "ng3.png", points: 5 },
-  { src: "ok.png", points: -15 },
+  { src: "images/ok.png", points: -15 },
+  { src: "images/ng2.png", points: 5 },
+  { src: "images/ok.png", points: -15 },
+  { src: "images/ng.png", points: 5 },
+  { src: "images/ok.png", points: -15 },
+  { src: "images/ng2.png", points: 5 },
+  { src: "images/ok.png", points: -15 },
+  { src: "images/ng3.png", points: 5 },
+  { src: "images/ok.png", points: -15 },
 ];
 
 function resizeWindow() {
@@ -41,7 +41,6 @@ let emojiInterval;
 
 function startGame() {
   startPage.style.display = "none";
-  createImageElement();
 
   let updateTimer = setInterval(() => {
     if (percent >= 100) {
@@ -58,21 +57,25 @@ function startGame() {
   }, imageInterval);
 }
 
-let imageElements = [];
+function createImageElement(imageInfo) {
+  let imageElement = new Image();
 
-function createImageElement() {
-  for (i = 0; i < imageList.length; ++i) {
-    const imageInfo = imageList[i];
+  imageElement.src = imageInfo.src;
+  imageElement.classList.add("game-image");
 
-    const imageElement = new Image();
-    imageElement.src = imageInfo.src;
-    imageElement.classList.add("game-image");
-    imageElement.addEventListener("click", () => {
-      updateScore(imageInfo.points);
-    });
+  const click = () => {
+    updateScore(imageInfo.points);
+    if (imageInfo.points == 5) {
+      imageElement.src = "images/check.png";
+    } else {
+      imageElement.src = "images/incorrect.png";
+    }
+    imageElement.removeEventListener("click", click);
+  };
 
-    imageElements.push(imageElement);
-  }
+  imageElement.addEventListener("click", click);
+
+  return imageElement;
 }
 
 function createRandomImage() {
@@ -83,7 +86,7 @@ function createRandomImage() {
 
   const randomIndex = Math.floor(Math.random() * imageList.length);
 
-  const imageElement = imageElements[randomIndex];
+  const imageElement = createImageElement(imageList[randomIndex]);
 
   gameContainer.appendChild(imageElement);
   animateImage(imageElement);
@@ -100,7 +103,9 @@ function animateImage(imageElement) {
     const newPosition = position - position * progress;
 
     if (newPosition < gameContainer.offsetLeft) {
-      gameContainer.removeChild(imageElement);
+      if (gameContainer.contains(imageElement)) {
+        gameContainer.removeChild(imageElement);
+      }
     } else {
       imageElement.style.left = newPosition + "px";
       requestAnimationFrame(moveImage);
@@ -133,8 +138,6 @@ function init() {
   scoreDiv.innerHTML = "スコア : " + score;
   scoreDiv.style.color = "rgb(47, 47, 47)";
   sliderDiv.style.width = 0;
-  imageElements = [];
-  createImageElement();
   percent = 0;
 }
 
