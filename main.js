@@ -45,6 +45,12 @@ let emojiInterval;
 
 function startGame() {
   startPage.style.display = "none";
+  score = 0;
+  scoreDiv.innerHTML = "スコア : " + score;
+  scoreDiv.style.color = "rgb(47, 47, 47)";
+  sliderDiv.style.width = 0;
+  percent = 0;
+  createImageElement();
 
   let updateTimer = setInterval(() => {
     if (percent >= 100) {
@@ -62,6 +68,7 @@ function startGame() {
 }
 
 function createImageElement() {
+  createdImages = [];
   for (i = 0; i <= 20; ++i) {
     const imageInfo = imageInfoList[Math.floor(Math.random() * imageInfoList.length)];
 
@@ -139,12 +146,6 @@ function foundNg() {
 }
 
 function playAgain() {
-  score = 0;
-  scoreDiv.innerHTML = "スコア : " + score;
-  scoreDiv.style.color = "rgb(47, 47, 47)";
-  sliderDiv.style.width = 0;
-  percent = 0;
-
   clearInterval(emojiInterval);
   document.getElementById("end-page").style.display = "none";
   startGame();
@@ -183,7 +184,5 @@ function createEmoji() {
     div.remove();
   });
 }
-
-createImageElement();
 
 
