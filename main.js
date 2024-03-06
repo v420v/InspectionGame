@@ -22,6 +22,8 @@ const imageList = [
   { src: "images/ok.png", points: -15 },
 ];
 
+let createdImages = [];
+
 function resizeWindow() {
   gameContainer.style.height =
     gameContainer.getBoundingClientRect().width + "px";
@@ -52,43 +54,45 @@ function startGame() {
       percent+=5;
       sliderDiv.style.width = `${percent}%`
       setTimeout(updateTimer, 1000);
-      createRandomImage();
+      createRandomImage(createdImages[(percent/5)-1]);
     }
   }, imageInterval);
 }
 
-function createImageElement(imageInfo) {
-  let imageElement = new Image();
+function createImageElement() {
+  for (i = 0; i <= 20; ++i) {
+    const imageInfo = imageList[Math.floor(Math.random() * imageList.length)];
 
-  imageElement.src = imageInfo.src;
-  imageElement.classList.add("game-image");
+    let imageElement = new Image();
+    imageElement.src = imageInfo.src;
+    imageElement.classList.add("game-image");
 
-  const click = () => {
-    updateScore(imageInfo.points);
-    if (imageInfo.points == 5) {
-      imageElement.src = "images/check.png";
-    } else {
-      imageElement.src = "images/incorrect.png";
-    }
-    imageElement.removeEventListener("click", click);
-  };
+    const click = () => {
+      updateScore(imageInfo.points);
+      if (imageInfo.points == 5) {
+        imageElement.src = "images/check.png";
+      } else {
+        imageElement.src = "images/incorrect.png";
+      }
+      imageElement.removeEventListener("click", click);
+    };
 
-  imageElement.addEventListener("click", click);
+    imageElement.addEventListener("click", click);
 
-  return imageElement;
+    createdImages.push(imageElement);
+  }
 }
 
-function createRandomImage() {
+createImageElement();
+
+function createRandomImage(imageElement) {
   // Occurs when the user changes the width of the screen during playing the game.
   if (gameContainer.childNodes.length != 0) {
     return;
   }
 
-  const randomIndex = Math.floor(Math.random() * imageList.length);
-
-  const imageElement = createImageElement(imageList[randomIndex]);
-
   gameContainer.appendChild(imageElement);
+
   animateImage(imageElement);
 }
 
