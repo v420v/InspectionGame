@@ -5,12 +5,16 @@ const scoreDiv = document.getElementById("score");
 const startPage = document.getElementById("start-page");
 const imageInterval = 1700; // 1.7seconds
 const gameContainer = document.getElementById("game-container");
+window.addEventListener("resize", resizeWindow);
+gameContainer.style.height = gameContainer.getBoundingClientRect().width + "px";
 
 let score = 0;
 let percent = 0;
 let gameWidth = gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
 
-const imageList = [
+let createdImages = [];
+
+const imageInfoList = [
   { src: "images/ok.png", points: -15 },
   { src: "images/ng2.png", points: 5 },
   { src: "images/ok.png", points: -15 },
@@ -22,16 +26,14 @@ const imageList = [
   { src: "images/ok.png", points: -15 },
 ];
 
-let createdImages = [];
+const imageIsNg = (imageInfo) => {
+  return imageInfo.points == 5;
+}
 
 function resizeWindow() {
   gameContainer.style.height =
     gameContainer.getBoundingClientRect().width + "px";
 }
-
-window.addEventListener("resize", resizeWindow);
-
-gameContainer.style.height = gameContainer.getBoundingClientRect().width + "px";
 
 function get_game_width() {
   gameWidth =
@@ -54,14 +56,14 @@ function startGame() {
       percent+=5;
       sliderDiv.style.width = `${percent}%`
       setTimeout(updateTimer, 1000);
-      createRandomImage(createdImages[(percent/5)-1]);
+      createRandomImage(createdImages[percent / 5 - 1]);
     }
   }, imageInterval);
 }
 
 function createImageElement() {
   for (i = 0; i <= 20; ++i) {
-    const imageInfo = imageList[Math.floor(Math.random() * imageList.length)];
+    const imageInfo = imageInfoList[Math.floor(Math.random() * imageInfoList.length)];
 
     let imageElement = new Image();
     imageElement.src = imageInfo.src;
@@ -69,11 +71,12 @@ function createImageElement() {
 
     const click = () => {
       updateScore(imageInfo.points);
-      if (imageInfo.points == 5) {
-        imageElement.src = "images/check.png";
+      if (imageIsNg(imageInfo)) {
+        imageElement.src = "images/correct.png";
       } else {
         imageElement.src = "images/incorrect.png";
       }
+
       imageElement.removeEventListener("click", click);
     };
 
@@ -82,8 +85,6 @@ function createImageElement() {
     createdImages.push(imageElement);
   }
 }
-
-createImageElement();
 
 function createRandomImage(imageElement) {
   // Occurs when the user changes the width of the screen during playing the game.
@@ -137,16 +138,13 @@ function foundNg() {
   gameContainer.childNodes[0].dispatchEvent(new Event("click"));
 }
 
-function init() {
+function playAgain() {
   score = 0;
   scoreDiv.innerHTML = "スコア : " + score;
   scoreDiv.style.color = "rgb(47, 47, 47)";
   sliderDiv.style.width = 0;
   percent = 0;
-}
 
-function playAgain() {
-  init();
   clearInterval(emojiInterval);
   document.getElementById("end-page").style.display = "none";
   startGame();
@@ -185,5 +183,7 @@ function createEmoji() {
     div.remove();
   });
 }
+
+createImageElement();
 
 
