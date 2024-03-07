@@ -72,14 +72,6 @@ footer {
   display: flex;
   padding: 30px 0px 0px 0px;
 }
-.settings-btn {
-  color: rgb(68, 68, 68);
-  font-size: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .start-page {
   color: rgb(47, 47, 47);
   height: 100%;
