@@ -72,8 +72,15 @@ function createImageElement() {
     imageElement.src = imageInfo.src;
     imageElement.classList.add("game-image");
 
+    if (imageInfo.points === -15) {
+      imageElement.classList.add("ok-image");
+    } else {
+      imageElement.classList.add("ng-image");
+    }
+
     const click = () => {
       updateScore(imageInfo.points);
+      imageElement.classList.add("clicked-image");
       imageElement.removeEventListener("click", click);
     };
 
@@ -106,6 +113,10 @@ function animateImage(imageElement) {
 
     if (imageElement.offsetLeft < gameContainer.offsetLeft) {
       if (gameContainer.contains(imageElement)) {
+        if (imageElement.classList.contains("ng-image") && !imageElement.classList.contains("clicked-image")) {
+          console.log(imageElement.src);
+          updateScore(-15);
+        }
         gameContainer.removeChild(imageElement);
       }
     } else {
