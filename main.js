@@ -26,10 +26,6 @@ const imageInfoList = [
   { src: "images/ok.png", points: -15 },
 ];
 
-const imageIsNg = (imageInfo) => {
-  return imageInfo.points == 5;
-}
-
 function resizeWindow() {
   gameContainer.style.height =
     gameContainer.getBoundingClientRect().width + "px";
@@ -60,7 +56,7 @@ function startGame() {
       emojiInterval = setInterval(createEmoji, 400);
     } else {
       percent+=5;
-      sliderDiv.style.width = `${percent}%`
+      sliderDiv.style.width = `${percent}%`;
       setTimeout(updateTimer, 1000);
       createRandomImage(createdImages[percent / 5 - 1]);
     }
@@ -78,12 +74,6 @@ function createImageElement() {
 
     const click = () => {
       updateScore(imageInfo.points);
-      if (imageIsNg(imageInfo)) {
-        imageElement.src = "images/correct.png";
-      } else {
-        imageElement.src = "images/incorrect.png";
-      }
-
       imageElement.removeEventListener("click", click);
     };
 
@@ -114,7 +104,7 @@ function animateImage(imageElement) {
 
     const newPosition = position - position * progress;
 
-    if (newPosition < gameContainer.offsetLeft) {
+    if (imageElement.offsetLeft < gameContainer.offsetLeft) {
       if (gameContainer.contains(imageElement)) {
         gameContainer.removeChild(imageElement);
       }
