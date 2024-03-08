@@ -103,7 +103,7 @@ function createRandomImage(imageElement) {
 
 function animateImage(imageElement) {
   let startTime = Date.now();
-  let position = get_game_width() - 50;
+  let position = get_game_width() - 40;
 
   const moveImage = () => {
     const alapsedTime = Date.now() - startTime;
