@@ -48,24 +48,19 @@ function startGame() {
   percent = 0;
   createImageElement();
 
-  //let updateTimer = setInterval(() => {
-  while (true) {
+  let updateTimer = setInterval(() => {
     if (percent >= 100) {
-      //clearInterval(updateTimer);
-      break
-      //document.getElementById("end-page").style.display = "block";
-      //document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
-      //emojiInterval = setInterval(createEmoji, 400);
-    } else if (gameContainer.childNodes.length == 0) {
+      clearInterval(updateTimer);
+      document.getElementById("end-page").style.display = "block";
+      document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
+      emojiInterval = setInterval(createEmoji, 400);
+    } else {
       percent+=5;
       sliderDiv.style.width = `${percent}%`;
       setTimeout(updateTimer, 1000);
       createRandomImage(createdImages[percent / 5 - 1]);
     }
-  }//, imageInterval);
-  document.getElementById("end-page").style.display = "block";
-  document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
-  emojiInterval = setInterval(createEmoji, 400);
+  }, imageInterval);
 }
 
 function createImageElement() {
@@ -190,5 +185,4 @@ function createEmoji() {
     div.remove();
   });
 }
-
 
