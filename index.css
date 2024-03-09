@@ -28,7 +28,7 @@ body {
 .game-image {
   position: absolute;
   cursor: pointer;
-  width: 40px;
+  width: 1.3em;
 }
 .score {
   flex: 1;

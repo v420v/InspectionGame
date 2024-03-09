@@ -39,7 +39,7 @@ function get_game_width() {
 
 let emojiInterval;
 
-function startGame() {
+async function startGame() {
   startPage.style.display = "none";
   score = 0;
   scoreDiv.innerHTML = "スコア : " + score;
@@ -48,19 +48,19 @@ function startGame() {
   percent = 0;
   createImageElement();
 
-  let updateTimer = setInterval(() => {
-    if (percent >= 100) {
-      clearInterval(updateTimer);
-      document.getElementById("end-page").style.display = "block";
-      document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
-      emojiInterval = setInterval(createEmoji, 400);
-    } else {
+  let updateTimer = setInterval(async () => {
+    if (gameContainer.childNodes.length === 0) {
       percent+=5;
       sliderDiv.style.width = `${percent}%`;
-      setTimeout(updateTimer, 1000);
-      createRandomImage(createdImages[percent / 5 - 1]);
+      await createRandomImage(createdImages[percent / 5 - 1]);
+      if (percent >= 100) {
+        clearInterval(updateTimer);
+        document.getElementById("end-page").style.display = "block";
+        document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
+        emojiInterval = setInterval(createEmoji, 400);
+      }
     }
-  }, imageInterval);
+  });
 }
 
 function createImageElement() {
@@ -90,15 +90,35 @@ function createImageElement() {
   }
 }
 
-function createRandomImage(imageElement) {
-  // Occurs when the user changes the width of the screen during playing the game.
-  if (gameContainer.childNodes.length != 0) {
-    return;
-  }
+async function createRandomImage(imageElement) {
+  return new Promise((resolve, reject) => {
+    gameContainer.appendChild(imageElement);
 
-  gameContainer.appendChild(imageElement);
+    let startTime = Date.now();
+    let position = get_game_width() - imageElement.width;
 
-  animateImage(imageElement);
+    const moveImage = () => {
+      const alapsedTime = Date.now() - startTime;
+      const progress = alapsedTime / 1700; // 1.7seconds
+
+      const newPosition = position - position * progress;
+
+      if (imageElement.offsetLeft < gameContainer.offsetLeft) {
+        if (gameContainer.contains(imageElement)) {
+          if (imageElement.classList.contains("ng-image") && !imageElement.classList.contains("clicked-image")) {
+            updateScore(-15);
+          }
+          gameContainer.removeChild(imageElement);
+          resolve(0);
+        }
+      } else {
+        imageElement.style.left = newPosition + "px";
+        requestAnimationFrame(moveImage);
+      }
+    };
+
+    moveImage();
+  });
 }
 
 function animateImage(imageElement) {
