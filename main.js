@@ -10,7 +10,7 @@ gameContainer.style.height = gameContainer.getBoundingClientRect().width + "px";
 
 let score = 0;
 let percent = 0;
-let gameWidth = gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
+let nozzle_image_start_position = gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
 
 let createdImages = [];
 
@@ -29,12 +29,6 @@ const imageInfoList = [
 function resizeWindow() {
   gameContainer.style.height =
     gameContainer.getBoundingClientRect().width + "px";
-}
-
-function get_game_width() {
-  gameWidth =
-    gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
-  return gameWidth;
 }
 
 let emojiInterval;
@@ -90,19 +84,19 @@ function createImageElement() {
   }
 }
 
+function get_nozzle_image_start_position() {
+  nozzle_image_start_position =
+    gameContainer.getBoundingClientRect().width + gameContainer.offsetLeft;
+  return nozzle_image_start_position;
+}
+
 async function createRandomImage(imageElement) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     gameContainer.appendChild(imageElement);
 
-    let startTime = Date.now();
-    let position = get_game_width() - imageElement.width;
+    let position = get_nozzle_image_start_position() - imageElement.width;
 
     const moveImage = () => {
-      const alapsedTime = Date.now() - startTime;
-      const progress = alapsedTime / 1700; // 1.7seconds
-
-      const newPosition = position - position * progress;
-
       if (imageElement.offsetLeft < gameContainer.offsetLeft) {
         if (gameContainer.contains(imageElement)) {
           if (imageElement.classList.contains("ng-image") && !imageElement.classList.contains("clicked-image")) {
@@ -112,9 +106,10 @@ async function createRandomImage(imageElement) {
           resolve(0);
         }
       } else {
-        imageElement.style.left = newPosition + "px";
+        imageElement.style.left = position + "px";
         requestAnimationFrame(moveImage);
       }
+      position -= gameContainer.offsetWidth / 80;
     };
 
     moveImage();
