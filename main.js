@@ -3,7 +3,6 @@ const rangeDiv = document.querySelector("#range");
 const sliderDiv = document.querySelector("#slider");
 const scoreDiv = document.getElementById("score");
 const startPage = document.getElementById("start-page");
-const imageInterval = 1700; // 1.7seconds
 const gameContainer = document.getElementById("game-container");
 window.addEventListener("resize", resizeWindow);
 gameContainer.style.height = gameContainer.getBoundingClientRect().width + "px";
@@ -31,7 +30,113 @@ function resizeWindow() {
     gameContainer.getBoundingClientRect().width + "px";
 }
 
-let emojiInterval;
+let emojiInterval = undefined;
+
+async function runAnimation() {
+  return new Promise((resolve) => {
+    document.getElementById("counter").style.display = "block";
+
+    let ml4 = {};
+    ml4.opacityIn = [0,1];
+    ml4.scaleIn = [1, 1];
+    ml4.scaleOut = 3;
+    ml4.durationIn = 100;
+    ml4.durationOut = 900;
+    ml4.delay = 200;
+
+    var animation = anime.timeline();
+
+    animation.add({
+      targets: '.ml4 .letters-1',
+      opacity: ml4.opacityIn,
+      scale: ml4.scaleIn,
+      duration: ml4.durationIn
+    }).add({
+      targets: '.ml4 .letters-1',
+      opacity: 0,
+      scale: ml4.scaleOut,
+      duration: ml4.durationOut,
+      easing: "easeInExpo",
+      delay: ml4.delay
+    }).add({
+      targets: '.ml4 .letters-2',
+      opacity: ml4.opacityIn,
+      scale: ml4.scaleIn,
+      duration: ml4.durationIn
+    }).add({
+      targets: '.ml4 .letters-2',
+      opacity: 0,
+      scale: ml4.scaleOut,
+      duration: ml4.durationOut,
+      easing: "easeInExpo",
+      delay: ml4.delay
+    }).add({
+      targets: '.ml4 .letters-3',
+      opacity: ml4.opacityIn,
+      scale: ml4.scaleIn,
+      duration: ml4.durationIn
+    }).add({
+      targets: '.ml4 .letters-3',
+      opacity: 0,
+      scale: ml4.scaleOut,
+      duration: ml4.durationOut,
+      easing: "easeInExpo",
+      delay: ml4.delay
+    }).add({
+      targets: '.ml4 .letters-4',
+      opacity: ml4.opacityIn,
+      scale: ml4.scaleIn,
+      duration: ml4.durationIn
+    }).add({
+      targets: '.ml4 .letters-4',
+      opacity: 0,
+      scale: ml4.scaleOut,
+      duration: ml4.durationOut,
+      easing: "easeInExpo",
+      delay: ml4.delay
+    }).add({
+      targets: '.ml4',
+      opacity: 0,
+      duration: 100,
+      delay: 100,
+      complete() {
+        animation.restart();
+        document.getElementById("counter").style.display = "none";
+        resolve(0);
+      }
+    });
+  });
+}
+
+async function countDown() {
+  const countDownWindow = document.getElementById("count-down-window");
+  const countDownContainer = document.getElementById("count-down-container");
+  countDownWindow.style.display = "block";
+  let sec = 4;
+  return new Promise((resolve) => {
+    const timer = setInterval(() => {
+      if (sec == 1) {
+        countDownContainer.innerHTML = "<div class=\"count-down-message\">スタートォ</div>";
+        sec--;
+      } else if (sec == 0) {
+        clearInterval(timer);
+        countDownWindow.style.display = "none";
+        resolve(0);
+      } else {
+        let div = document.createElement("div");
+        div.innerHTML = --sec;
+        div.classList.add("count-down-number");
+        countDownContainer.append(div);
+
+        let animations = document.querySelector(".count-down-number").getAnimations();
+        if (animations[0].animationName == "count-down-animation") {
+          div.classList.add("count-down-number-out");
+        }
+
+      }
+    }, 1000);
+  });
+}
 
 async function startGame() {
   startPage.style.display = "none";
@@ -41,6 +146,8 @@ async function startGame() {
   sliderDiv.style.width = 0;
   percent = 0;
   createImageElement();
+
+  await runAnimation();
 
   let updateTimer = setInterval(async () => {
     if (gameContainer.childNodes.length === 0) {
