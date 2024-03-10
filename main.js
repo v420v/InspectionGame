@@ -157,6 +157,19 @@ async function startGame() {
       if (percent >= 100) {
         clearInterval(updateTimer);
         document.getElementById("end-page").style.display = "block";
+        var finalScoreContainer = document.getElementById("final-score-container");
+    
+        anime({
+          targets: finalScoreContainer,
+          innerText: [0, score.toString()],
+          easing: "linear",
+          round: true,
+          update: function(a) {
+            const value = a.animations[0].currentValue;
+            finalScoreContainer.innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + value + "点</span>";
+          }
+        });
+
         document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
         emojiInterval = setInterval(createEmoji, 400);
       }
@@ -221,33 +234,6 @@ async function createRandomImage(imageElement) {
 
     moveImage();
   });
-}
-
-function animateImage(imageElement) {
-  let startTime = Date.now();
-  let position = get_game_width() - 40;
-
-  const moveImage = () => {
-    const alapsedTime = Date.now() - startTime;
-    const progress = alapsedTime / 1700; // 1.7seconds
-
-    const newPosition = position - position * progress;
-
-    if (imageElement.offsetLeft < gameContainer.offsetLeft) {
-      if (gameContainer.contains(imageElement)) {
-        if (imageElement.classList.contains("ng-image") && !imageElement.classList.contains("clicked-image")) {
-          console.log(imageElement.src);
-          updateScore(-15);
-        }
-        gameContainer.removeChild(imageElement);
-      }
-    } else {
-      imageElement.style.left = newPosition + "px";
-      requestAnimationFrame(moveImage);
-    }
-  };
-
-  moveImage();
 }
 
 function updateScore(points) {
