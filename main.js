@@ -32,7 +32,7 @@ function resizeWindow() {
 
 let emojiInterval = undefined;
 
-async function runAnimation() {
+async function runCountDownAnimation() {
   return new Promise((resolve) => {
     document.getElementById("counter").style.display = "block";
 
@@ -44,7 +44,7 @@ async function runAnimation() {
     ml4.durationOut = 900;
     ml4.delay = 200;
 
-    var animation = anime.timeline();
+    let animation = anime.timeline();
 
     animation.add({
       targets: '.ml4 .letters-1',
@@ -147,7 +147,7 @@ async function startGame() {
   percent = 0;
   createImageElement();
 
-  await runAnimation();
+  await runCountDownAnimation();
 
   let updateTimer = setInterval(async () => {
     if (gameContainer.childNodes.length === 0) {
