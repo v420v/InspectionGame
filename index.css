@@ -197,6 +197,17 @@ footer {
   }
 }
 
+.share-twitter {
+  font-size: 20px;
+  color: #1da1f2;
+  text-decoration: none;
+}
+.share-line {
+  font-size: 20px;
+  color: rgb(13, 210, 46);
+  text-decoration: none;
+}
+
 /* start count down timer */
 .counter {
   width: 100%;
