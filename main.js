@@ -171,6 +171,10 @@ async function startGame() {
         });
 
         document.getElementById("final-score-container").innerHTML = "あなたのスコア<br>" + "<span class=\"final-score\">" + score + "点</span>";
+        document.getElementById("share-twitter").setAttribute(
+          "href",
+          "http://twitter.com/share?url=https://v420v.github.io/InspectionGame&text=私のスコアは" + score + "点だった！%0a%0a" + "ノズル検査の工程を体験できるゲーム！&via=ibuki42O&hashtags=ノズル検査ゲーム"
+        );
         emojiInterval = setInterval(createEmoji, 400);
       }
     }
