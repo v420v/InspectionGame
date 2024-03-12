@@ -170,7 +170,7 @@ footer {
 
 select {
   cursor: pointer;
-  text-align: center;
+  text-align-last: center;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
