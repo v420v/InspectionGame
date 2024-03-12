@@ -138,8 +138,12 @@ async function countDown() {
   });
 }
 
+let difficulty = "ふつう"
+
 async function startGame() {
+  difficulty = document.getElementById("difficulty").value;
   startPage.style.display = "none";
+
   score = 0;
   scoreDiv.innerHTML = "スコア : " + score;
   scoreDiv.style.color = "rgb(47, 47, 47)";
@@ -214,6 +218,15 @@ function get_nozzle_image_start_position() {
   return nozzle_image_start_position;
 }
 
+function getSpeedByDifficulty() {
+  switch (difficulty) {
+    case "かんたん": return 100;
+    case "ふつう": return 80;
+    case "むずかしい": return 55;
+    default: return 80;
+  }
+}
+
 async function createRandomImage(imageElement) {
   return new Promise((resolve) => {
     gameContainer.appendChild(imageElement);
@@ -233,7 +246,7 @@ async function createRandomImage(imageElement) {
         imageElement.style.left = position + "px";
         requestAnimationFrame(moveImage);
       }
-      position -= gameContainer.offsetWidth / 80;
+      position -= gameContainer.offsetWidth / getSpeedByDifficulty();
     };
 
     moveImage();

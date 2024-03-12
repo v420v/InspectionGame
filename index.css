@@ -133,6 +133,57 @@ footer {
   top: 10px;
 }
 
+*:focus {
+  outline: none;
+}
+
+.select {
+  animation: tilt 1.5s infinite;
+  font-size: 30px;
+  height: 70px;
+  background: #353b51;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  border: 2px solid rgb(0, 0, 0);
+  z-index: 1;
+  
+  &::after {
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 8px;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    border-bottom: 4px solid #fff;
+    border-right: 4px solid #fff;
+    z-index: -1;
+  }
+}
+
+.select:active {
+  box-shadow: none;
+  position: relative;
+  top: 10px;
+}
+
+select {
+  cursor: pointer;
+  text-align: center;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  padding: 0 30px;
+  position: relative;
+}
+
 .range{
   height: 45px;
   background: linear-gradient(135deg, transparent 7px, #808C88 0) top left;
