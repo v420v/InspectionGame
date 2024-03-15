@@ -223,6 +223,7 @@ function getSpeedByDifficulty() {
     case "かんたん": return 100;
     case "ふつう": return 80;
     case "むずかしい": return 55;
+    case "プロ": return 40;
     default: return 80;
   }
 }
