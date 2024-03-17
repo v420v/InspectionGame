@@ -7,6 +7,7 @@ html {
   touch-action: manipulation;
 }
 body {
+  overflow: hidden;
   background-color: rgb(243, 243, 243);
 }
 .container {
@@ -32,7 +33,7 @@ body {
 }
 .score {
   flex: 1;
-  font-size: 30px;
+  font-size: min(15vw, 35px);
 }
 .remove-btn {
   padding-top: 30px;
@@ -74,10 +75,10 @@ footer {
 }
 .start-page {
   color: rgb(47, 47, 47);
-  height: 100%;
   width: 100%;
   top: 0;
   left: 0;
+  height: 100%;
   position: absolute;
   background-color: rgb(243, 243, 243);
   text-align: center;
@@ -85,15 +86,15 @@ footer {
 .start-page-container {
   margin: 0 auto;
   position: relative;
-  max-width: 450px;
-  padding: 0 20px;
+  max-width: 600px;
+  padding: 0 15px;
   top: 20%;
 }
 .title {
-  font-size: 55px;
+  font-size: min(17vw, 100px);
   letter-spacing: 3px;
   font-weight: 200;
-  line-height: 60px;
+  line-height: min(17vw, 100px);
   padding-bottom: 30px;
 }
 @keyframes tilt {
@@ -147,10 +148,10 @@ footer {
   position: relative;
   border: 2px solid rgb(0, 0, 0);
   z-index: 1;
-  
+
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     width: 8px;
     height: 8px;
     right: 20px;
@@ -184,14 +185,15 @@ select {
   position: relative;
 }
 
-.range{
+.range {
   height: 45px;
-  background: linear-gradient(135deg, transparent 7px, #808C88 0) top left;
+  background: linear-gradient(135deg, transparent 7px, #808c88 0) top left;
 }
-.slider{
+.slider {
   height: 45px;
   width: 0px;
-  background: linear-gradient(135deg, transparent 7px, rgba(254, 44, 85, 1) 0) top left;
+  background: linear-gradient(135deg, transparent 7px, rgba(254, 44, 85, 1) 0)
+    top left;
 }
 
 .end-page {
@@ -204,15 +206,15 @@ select {
   height: 100dvh;
 }
 .end-page-container {
-  position:relative;
+  position: relative;
   text-align: center;
-  max-width: 350px;
+  max-width: 600px;
+  padding: 0 15px;
   margin: 0 auto;
   display: flex;
   height: 100%;
   justify-content: space-around;
   flex-flow: column;
-  padding: 0px 10px;
   color: rgba(254, 44, 85, 1);
   overflow: hidden;
 }
@@ -281,6 +283,5 @@ select {
   left: 0;
   top: 0.5em;
   right: 0;
-  opacity: 0; 
+  opacity: 0;
 }
-
